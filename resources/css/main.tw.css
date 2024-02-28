@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+
+/*
+ * import vendors and third party
+ * scripts here.Magnific, slick ect
+ */
+
+
+/* import ll base styles */
+@import 'base/variables';
+@import 'base/utilities';
+@import 'base/base.css';
+@import 'base/typography';
+@import 'base/grid';
+
+/* import partials */
+@import 'partials/archive.css';
+@import 'partials/admin.css';
+@import 'partials/default.css';
+
+/* import pages */
+
+@tailwind utilities;

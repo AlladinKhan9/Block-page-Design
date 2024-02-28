@@ -1,0 +1,171 @@
+/*
+ * Text defaults. Tailwind removes pretty much ALL styling
+ * from default elements to ensure that their utility classes
+ * work as expected. This is a good thing. This means any time
+ * you use an element, whether it's a p tag, li, a tag or a heading, you
+ * need to explicitly set a class on it. This is good for clarity.
+ * The wysiwyg wrapper class below will handle elements from WYSIWYGs
+ * that do not have classes / formats applied. Font sizes are documented here:
+ * https://tailwindcss.com/docs/font-size/#app
+ *
+ * Sizes set here are for example only. Overwrite and add formatting as necessary
+ */
+.hdg-1 {
+  @apply .text-3xl .leading-relaxed .font-medium .tracking-normal;
+}
+
+.hdg-2 {
+  @apply .text-2xl .leading-relaxed .font-medium .tracking-normal;
+}
+
+.hdg-3 {
+  @apply .text-xl .leading-tight .font-medium .tracking-normal;
+}
+
+.hdg-4 {
+  @apply .text-lg .leading-normal .font-medium .tracking-normal;
+}
+
+.hdg-5 {
+  @apply .text-base .leading-relaxed .font-medium .tracking-normal;
+}
+
+.hdg-6 {
+  @apply .text-xs .leading-loose .font-bold .tracking-wider .uppercase;
+}
+
+.paragraph-default {
+  @apply .text-base .font-normal .leading-normal .tracking-normal;
+}
+
+.hdg-title {
+  @apply .text-xs .font-normal .leading-relaxed .tracking-wide .uppercase;
+}
+
+.hdg-subtitle {
+  @apply .text-sm .font-normal .leading-snug .tracking-normal;
+}
+
+.hdg-meta {
+  @apply .text-xxs .font-bold .leading-tight .tracking-normal;
+}
+
+.text-label {
+  @apply .text-sm .font-normal .text-gray-300 .leading-loose;
+}
+
+/*
+ * .wysiwyg is a wrapper class for any content that will be
+ * echoed out via any wysiwyg editor. Be sure to use
+ * @apply .{utility-class} when declaring text styles
+ * when possible. #tinymce selector is used to target the body of the
+ * WYSIWYGS on the backend of the site. This should not be targeted in production
+ * on the front end anywhere on the site
+ */
+
+.wysiwyg,
+#tinymce {
+  /*
+   * zero out margins for first and
+   * last elements within a WYSIWYG
+   * to remove any unwanted vertical spacing
+   */
+  & > *:first-child {
+    margin-top: 0 !important;
+  }
+
+  & > *:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /*
+   * set defaults to elements in the WYSIWYG that
+   * do not have a style format/class applied to them. Notice that
+   * by default, bottom margins get set. It's best to set bottom margin
+   * rules for the WYSIWYG wrapper and explicitely set bottom margins using
+   * utlities elswhere.
+   */
+  a:not([class*="hdg-"], [class*="paragraph-"], [class="btn"]) {
+
+    &:hover, &:active, &:focus {
+      @apply .underline;
+    }
+  }
+
+  p:not([class*="hdg-"], [class*="paragraph-"]) {
+    @extend .paragraph-default;
+    @apply .mb-5;
+  }
+
+  h1:not([class*="hdg-"], [class*="paragraph-"]) {
+    @extend .hdg-1;
+    @apply .mb-3;
+  }
+
+  h2:not([class*="hdg-"], [class*="paragraph-"]) {
+    @extend .hdg-2;
+    @apply .mb-3;
+  }
+
+  h3:not([class*="hdg-"], [class*="paragraph-"]) {
+    @extend .hdg-3;
+    @apply .mb-4;
+  }
+
+  h4:not([class*="hdg-"], [class*="paragraph-"]) {
+    @extend .hdg-4;
+    @apply .mb-4;
+  }
+
+  h5:not([class*="hdg-"], [class*="paragraph-"]) {
+    @extend .hdg-5;
+    @apply .mb-5;
+  }
+
+  h6:not([class*="hdg-"], [class*="paragraph-"]) {
+    @extend .hdg-6;
+    @apply .mb-5;
+  }
+
+  ul:not([class]),
+  ol:not([class]) {
+    @apply .mb-5 .pl-5;
+
+    li:not([class*="hdg-"], [class*="paragraph-"]) {
+      @extend .paragraph-default;
+      @apply .mb-2;
+    }
+
+    li {
+      &:not(:last-child) {
+        @apply .mb-2;
+      }
+
+      &:last-child {
+        @apply .mb-0;
+      }
+    }
+  }
+
+  /*
+   * Set default list styles back to disk
+   * and number
+   */
+  ul:not([class]) {
+    @apply .list-disc;
+  }
+
+  ol:not([class]) {
+    @apply .list-decimal;
+  }
+
+  /*
+   * If you need to add any extra styling to specific
+   * text classes, add them here. For instance, when coming
+   * from the WYSIWYG, .hdg-1 needs a specific bottom margin
+   * no matter what element it is applied to
+   */
+  .hdg-1 {
+    @apply .mb-5;
+  }
+}
